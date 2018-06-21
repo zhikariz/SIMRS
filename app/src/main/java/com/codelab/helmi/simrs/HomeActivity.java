@@ -9,12 +9,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 public class HomeActivity extends AppCompatActivity {
+    final FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        final FragmentManager fragmentManager = getSupportFragmentManager();
         if(savedInstanceState==null) {
             fragmentManager.beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)

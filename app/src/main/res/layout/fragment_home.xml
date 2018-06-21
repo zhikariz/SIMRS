@@ -38,6 +38,7 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/iv_layanan"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:src="@mipmap/ic_launcher" />
@@ -48,6 +49,7 @@
                     android:text="Layanan Unggulan" />
 
                 <ImageView
+                    android:id="@+id/iv_jadwal_dokter"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginTop="20dp"
@@ -66,6 +68,7 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/iv_jadwal_cuti"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:src="@mipmap/ic_launcher" />
@@ -76,6 +79,7 @@
                     android:text="Jadwal Cuti" />
 
                 <ImageView
+                    android:id="@+id/iv_pesan"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginTop="20dp"
