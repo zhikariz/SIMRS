@@ -27,6 +27,10 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_home:
+                        fragmentManager.beginTransaction()
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .replace(R.id.frame_container, new ChatFragment())
+                            .commit();
                         break;
                     case R.id.action_chat:
                         fragmentManager.beginTransaction()
