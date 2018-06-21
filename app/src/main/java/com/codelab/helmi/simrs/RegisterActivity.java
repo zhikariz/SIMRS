@@ -3,7 +3,7 @@ package com.codelab.helmi.simrs;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class OldRegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

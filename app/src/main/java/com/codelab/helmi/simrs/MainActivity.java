@@ -29,36 +29,8 @@ public class MainActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
-                builder.setTitle("Konfirmasi");
-                builder.setMessage("Apakah Anda Sudah Pernah Periksa Di Rumah Sakit Kasih Ibu?");
-
-                builder.setPositiveButton("Tidak", new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Do nothing but close the dialog
-                        Intent i = new Intent(MainActivity.this, NewRegisterActivity.class);
-                        startActivity(i);
-
-                        dialog.dismiss();
-                    }
-                });
-
-                builder.setNegativeButton("Iya", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        Intent i = new Intent(MainActivity.this, OldRegisterActivity.class);
-                        startActivity(i);
-                        // Do nothing
-                        dialog.dismiss();
-                    }
-                });
-
-                AlertDialog alert = builder.create();
-                alert.show();
+                Intent i = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(i);
 
             }
         });
