@@ -9,16 +9,18 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 public class HomeActivity extends AppCompatActivity {
+    final FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        final FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .replace(R.id.frame_container, new ChatFragment())
-                .commit();
+        if(savedInstanceState==null) {
+            fragmentManager.beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .replace(R.id.frame_container, new HomeFragment())
+                    .commit();
+        }
 
 
         BottomNavigationView bottomNavigationView =(BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -27,6 +29,10 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_home:
+                        fragmentManager.beginTransaction()
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .replace(R.id.frame_container, new HomeFragment())
+                            .commit();
                         break;
                     case R.id.action_chat:
                         fragmentManager.beginTransaction()
