@@ -15,10 +15,12 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         final FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .replace(R.id.frame_container, new ChatFragment())
-                .commit();
+        if(savedInstanceState==null) {
+            fragmentManager.beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .replace(R.id.frame_container, new HomeFragment())
+                    .commit();
+        }
 
 
         BottomNavigationView bottomNavigationView =(BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -29,7 +31,7 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.action_home:
                         fragmentManager.beginTransaction()
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .replace(R.id.frame_container, new ChatFragment())
+                            .replace(R.id.frame_container, new HomeFragment())
                             .commit();
                         break;
                     case R.id.action_chat:
