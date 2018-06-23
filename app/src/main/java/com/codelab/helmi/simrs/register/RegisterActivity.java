@@ -1,7 +1,9 @@
-package com.codelab.helmi.simrs;
+package com.codelab.helmi.simrs.register;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.codelab.helmi.simrs.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

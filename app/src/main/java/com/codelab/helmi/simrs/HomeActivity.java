@@ -8,6 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.codelab.helmi.simrs.chat.ChatFragment;
+import com.codelab.helmi.simrs.history.HistoryFragment;
+import com.codelab.helmi.simrs.home.HomeFragment;
+import com.codelab.helmi.simrs.info.InfoFragment;
+
 public class HomeActivity extends AppCompatActivity {
     final FragmentManager fragmentManager = getSupportFragmentManager();
 

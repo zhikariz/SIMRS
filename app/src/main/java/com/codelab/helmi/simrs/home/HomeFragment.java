@@ -1,4 +1,4 @@
-package com.codelab.helmi.simrs;
+package com.codelab.helmi.simrs.home;
 
 
 import android.os.Bundle;
@@ -9,7 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import com.codelab.helmi.simrs.jadwal_cuti.JadwalCutiFragment;
+import com.codelab.helmi.simrs.jadwal_dokter.JadwalDokterFragment;
+import com.codelab.helmi.simrs.layanan.LayananFragment;
+import com.codelab.helmi.simrs.pesan.PesanFragment;
+import com.codelab.helmi.simrs.R;
 
 
 /**
