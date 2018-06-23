@@ -1,4 +1,13 @@
 package com.codelab.helmi.simrs.api;
 
-public class RestApi {
+import com.codelab.helmi.simrs.jadwal_dokter.JadwalDokterResponseModel;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+
+public interface RestApi {
+
+    //read
+    @GET("jadwal_dokter.php")
+    Call<JadwalDokterResponseModel> getJadwalDokter();
 }
