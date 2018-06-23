@@ -26,7 +26,7 @@ public class ChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+       
         return inflater.inflate(R.layout.fragment_chat, container, false);
     }
 
