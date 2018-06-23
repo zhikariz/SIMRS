@@ -2,6 +2,7 @@ package com.codelab.helmi.simrs.jadwal_dokter;
 
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,6 +34,8 @@ public class JadwalDokterFragment extends Fragment implements SwipeRefreshLayout
     private RecyclerView.LayoutManager mManager;
     private List<JadwalDokterModel> mItems = new ArrayList<>();
     private SwipeRefreshLayout swipeRefreshLayout;
+    private static Bundle mBundleRecyclerViewState;
+    private final String KEY_RECYCLER_STATE = "recycler_state";
 
     public JadwalDokterFragment() {
         // Required empty public constructor
@@ -45,8 +48,6 @@ public class JadwalDokterFragment extends Fragment implements SwipeRefreshLayout
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.recycler_content, container, false);
         initView();
-        loadData();
-
         return view;
     }
 
@@ -56,7 +57,6 @@ public class JadwalDokterFragment extends Fragment implements SwipeRefreshLayout
         mRecycler.setLayoutManager(mManager);
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setRefreshing(true);
 
     }
 
@@ -68,6 +68,37 @@ public class JadwalDokterFragment extends Fragment implements SwipeRefreshLayout
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mBundleRecyclerViewState = new Bundle();
+        Parcelable listState = mRecycler.getLayoutManager().onSaveInstanceState();
+        mBundleRecyclerViewState.putParcelable(KEY_RECYCLER_STATE, listState);
+        mAdapter = mRecycler.getAdapter();
+
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mBundleRecyclerViewState = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(mBundleRecyclerViewState != null){
+            Parcelable listState = mBundleRecyclerViewState.getParcelable(KEY_RECYCLER_STATE);
+            mRecycler.getLayoutManager().onRestoreInstanceState(listState);
+            mRecycler.setAdapter(mAdapter);
+        }else if(mBundleRecyclerViewState == null){
+            swipeRefreshLayout.setRefreshing(true);
+            loadData();
+        }
+    }
+
     public void loadData() {
         RestApi api = RestServer.getClient().create(RestApi.class);
         Call<JadwalDokterResponseModel> getData = api.getJadwalDokter();
@@ -76,7 +107,7 @@ public class JadwalDokterFragment extends Fragment implements SwipeRefreshLayout
             public void onResponse(Call<JadwalDokterResponseModel> call, Response<JadwalDokterResponseModel> response) {
                 mItems = response.body().getResult();
 
-                mAdapter = new JadwalDokterRecyclerAdapter(getActivity().getApplicationContext(), mItems);
+                mAdapter = new JadwalDokterRecyclerAdapter(getActivity().getApplicationContext(), mItems,getFragmentManager());
                 mRecycler.setAdapter(mAdapter);
                 swipeRefreshLayout.setRefreshing(false);
             }
