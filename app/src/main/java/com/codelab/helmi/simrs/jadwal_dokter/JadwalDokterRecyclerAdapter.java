@@ -1,7 +1,9 @@
 package com.codelab.helmi.simrs.jadwal_dokter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.codelab.helmi.simrs.R;
+import com.codelab.helmi.simrs.jadwal_dokter.detail.DetailJadwalDokterFragment;
 
 import java.util.List;
 
@@ -16,10 +19,12 @@ public class JadwalDokterRecyclerAdapter extends RecyclerView.Adapter<JadwalDokt
 
     List<JadwalDokterModel> mList;
     Context ctx;
+    FragmentManager fragmentManager;
 
-    public JadwalDokterRecyclerAdapter(Context ctx, List<JadwalDokterModel> mList) {
+    public JadwalDokterRecyclerAdapter(Context ctx, List<JadwalDokterModel> mList, FragmentManager fragmentManager) {
         this.mList = mList;
         this.ctx = ctx;
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -31,14 +36,33 @@ public class JadwalDokterRecyclerAdapter extends RecyclerView.Adapter<JadwalDokt
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
         holder.nama.setText(mList.get(position).getDokter());
-        holder.usia.setText(mList.get(position).getSpesialis());
-        holder.domisili.setText(mList.get(position).getSenin());
+        holder.spesialis.setText(mList.get(position).getSpesialis());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DetailJadwalDokterFragment detailJadwalDokterFragment = new DetailJadwalDokterFragment();
+                JadwalDokterModel jadwalDokterModel = new JadwalDokterModel();
+
+                jadwalDokterModel.setDokter(mList.get(position).getDokter());
+                jadwalDokterModel.setSpesialis(mList.get(position).getSpesialis());
+                jadwalDokterModel.setSenin(mList.get(position).getSenin());
+                jadwalDokterModel.setSelasa(mList.get(position).getSelasa());
+                jadwalDokterModel.setRabu(mList.get(position).getRabu());
+                jadwalDokterModel.setKamis(mList.get(position).getKamis());
+                jadwalDokterModel.setJumat(mList.get(position).getJumat());
+                jadwalDokterModel.setSabtu(mList.get(position).getSabtu());
+                jadwalDokterModel.setMinggu(mList.get(position).getMinggu());
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(DetailJadwalDokterFragment.EXTRA_JADWAL_DOKTER, jadwalDokterModel);
+                detailJadwalDokterFragment.setArguments(bundle);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_container, detailJadwalDokterFragment, detailJadwalDokterFragment.getClass().getSimpleName())
+                        .addToBackStack(detailJadwalDokterFragment.getClass().getSimpleName())
+                        .commit();
 
             }
         });
@@ -51,14 +75,13 @@ public class JadwalDokterRecyclerAdapter extends RecyclerView.Adapter<JadwalDokt
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        TextView nama, domisili, usia;
+        TextView nama, spesialis, usia;
 
         public MyHolder(View v) {
             super(v);
 
-            nama = (TextView) v.findViewById(R.id.tvNama);
-            usia = (TextView) v.findViewById(R.id.tvUsia);
-            domisili = (TextView) v.findViewById(R.id.tvDomisili);
+            nama = (TextView) v.findViewById(R.id.tv_jadwal_dokter_nama);
+            spesialis = (TextView) v.findViewById(R.id.tv_jadwal_dokter_spesialis);
 
 
         }

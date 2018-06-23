@@ -28,7 +28,7 @@
                     android:textSize="17sp"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:text="nama"/>
+                    android:text="Nama Dokter"/>
                 <TextView
                     android:layout_width="5dp"
                     android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:id="@+id/tvNama"/>
+                    android:id="@+id/tv_jadwal_dokter_nama"/>
 
             </LinearLayout>
 
@@ -56,7 +56,7 @@
                     android:textSize="17sp"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:text="Usia"/>
+                    android:text="Spesialis"/>
                 <TextView
                     android:layout_width="5dp"
                     android:layout_height="wrap_content"
@@ -69,35 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:id="@+id/tvUsia"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-
-                    android:textStyle="bold"
-                    android:textSize="17sp"
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:text="domisili"/>
-                <TextView
-                    android:layout_width="5dp"
-                    android:layout_height="wrap_content"
-                    android:text=":"/>
-
-                <TextView
-
-                    android:textStyle="bold"
-                    android:textSize="17sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:id="@+id/tvDomisili"/>
+                    android:id="@+id/tv_jadwal_dokter_spesialis"/>
 
             </LinearLayout>
 
