@@ -54,9 +54,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void callFragment(Fragment fragment){
         fragmentManager = getFragmentManager();
+        fragmentManager.popBackStack();
         fragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .replace(R.id.frame_container, fragment, fragment.getClass().getSimpleName())
+                .addToBackStack(fragment.getClass().getSimpleName())
                 .commit();
     }
 

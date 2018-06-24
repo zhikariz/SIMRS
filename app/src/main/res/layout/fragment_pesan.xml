@@ -3,62 +3,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".pesan.PesanFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Poli"/>
-    <EditText
+        android:text="Poli" />
+
+    <Spinner
+        android:id="@+id/sp_poli"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dokter"/>
-    <EditText
+        android:text="Dokter" />
+
+    <Spinner
+        android:id="@+id/sp_dokter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <RadioGroup
+        android:id="@+id/rg_kategori"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
+
         <RadioButton
+            android:id="@+id/rb_pribadi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pribadi"/>
+            android:text="Pribadi" />
+
         <RadioButton
+            android:id="@+id/rb_bpjs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="BPJS"/>
+            android:text="BPJS" />
+
         <RadioButton
+            android:id="@+id/rb_asuransi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="Asuransi"/>
+            android:text="Asuransi" />
     </RadioGroup>
 
     <TextView
+        android:id="@+id/tv_asuransi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:text="Asuransi"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="wrap_content" />
+        android:text="Asuransi"
+        android:visibility="gone" />
+
+   <Spinner
+       android:id="@+id/sp_asuransi"
+       android:layout_width="match_parent"
+       android:visibility="gone"
+       android:layout_height="wrap_content"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tanggal"/>
+        android:text="Tanggal" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -67,6 +82,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="SUBMIT"/>
+        android:text="SUBMIT" />
 
 </LinearLayout>

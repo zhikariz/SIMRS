@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -19,17 +20,16 @@ import com.codelab.helmi.simrs.info.InfoFragment;
 import com.codelab.helmi.simrs.login.LoginActivity;
 
 public class HomeActivity extends AppCompatActivity {
-    final FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         if(savedInstanceState==null) {
-            fragmentManager.beginTransaction()
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .replace(R.id.frame_container, new HomeFragment())
-                    .commit();
+            fragment = new HomeFragment();
+            callFragment(fragment);
         }
 
 
@@ -39,30 +39,22 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_home:
-                        fragmentManager.beginTransaction()
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .replace(R.id.frame_container, new HomeFragment())
-                            .commit();
+                        fragment = new HomeFragment();
+                        callFragment(fragment);
                         break;
                     case R.id.action_chat:
-                        fragmentManager.beginTransaction()
-                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                .replace(R.id.frame_container, new ChatFragment())
-                                .commit();
+                        fragment = new ChatFragment();
+                        callFragment(fragment);
                         break;
 
                     case R.id.action_history:
-                        fragmentManager.beginTransaction()
-                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                .replace(R.id.frame_container, new HistoryFragment())
-                                .commit();
+                        fragment = new HistoryFragment();
+                        callFragment(fragment);
                         break;
 
                     case R.id.action_info:
-                        fragmentManager.beginTransaction()
-                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                .replace(R.id.frame_container, new InfoFragment())
-                                .commit();
+                       fragment = new InfoFragment();
+                       callFragment(fragment);
                         break;
 
                 }
@@ -71,5 +63,14 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void callFragment(Fragment fragment){
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStack();
+        fragmentManager.beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .replace(R.id.frame_container, fragment, fragment.getClass().getSimpleName())
+                .commit();
     }
 }
