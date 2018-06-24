@@ -1,8 +1,12 @@
 package com.codelab.helmi.simrs.login;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.support.annotation.IntegerRes;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +24,7 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     EditText etNoRm, etPassword;
     Button btnLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(Call<LoginResponseModel> call, Response<LoginResponseModel> response) {
                 Toast.makeText(LoginActivity.this, response.body().getResult().toString(), Toast.LENGTH_SHORT).show();
                 if (response.body().getResult().toString().equals("Login Berhasil")){
-                    
                     Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-
                     startActivity(i);
 
                 } else {

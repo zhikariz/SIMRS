@@ -1,17 +1,22 @@
 package com.codelab.helmi.simrs;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.codelab.helmi.simrs.chat.ChatFragment;
 import com.codelab.helmi.simrs.history.HistoryFragment;
 import com.codelab.helmi.simrs.home.HomeFragment;
 import com.codelab.helmi.simrs.info.InfoFragment;
+import com.codelab.helmi.simrs.login.LoginActivity;
 
 public class HomeActivity extends AppCompatActivity {
     final FragmentManager fragmentManager = getSupportFragmentManager();
