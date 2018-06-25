@@ -1,6 +1,7 @@
 package com.codelab.helmi.simrs.pesan;
 
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,8 +22,11 @@ import com.codelab.helmi.simrs.R;
 import com.codelab.helmi.simrs.api.RestApi;
 import com.codelab.helmi.simrs.api.RestServer;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +39,8 @@ import retrofit2.Response;
 public class PesanFragment extends Fragment implements AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
     View view;
     Spinner sp_poli, sp_dokter, sp_asuransi;
+    String kategori,id_poli_dokter,id_asuransi;
+    EditText edtTglPesan;
     Context context;
     List<PoliData> mItems = new ArrayList<>();
     List<PoliDokterData> mItems2 = new ArrayList<>();
@@ -44,7 +53,11 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
     ArrayAdapter<String> spinnerAdapter2 = null;
     RadioGroup rgKategori;
     TextView tvAsuransi;
+    Button btnSubmit;
     RestApi api = RestServer.getClient().create(RestApi.class);
+    Calendar myCalendar = Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener date;
+
 
     public PesanFragment() {
         // Required empty public constructor
@@ -66,6 +79,29 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
         rgKategori = view.findViewById(R.id.rg_kategori);
         rgKategori.setOnCheckedChangeListener(this);
         tvAsuransi = view.findViewById(R.id.tv_asuransi);
+        edtTglPesan = view.findViewById(R.id.edt_tgl_pesan);
+        btnSubmit = view.findViewById(R.id.btn_submit_pesan);
+
+        date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, month);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+        };
+
+        edtTglPesan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
 
         Call<PoliResponseModel> getDataPoli = api.getPoli();
         getDataPoli.enqueue(new Callback<PoliResponseModel>() {
@@ -91,8 +127,35 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Call<PesanResponseModel> postData = api.postDataPesan(kategori,edtTglPesan.getText().toString(),"112233","Belum disetujui",id_poli_dokter,id_asuransi);
+                postData.enqueue(new Callback<PesanResponseModel>() {
+                    @Override
+                    public void onResponse(Call<PesanResponseModel> call, Response<PesanResponseModel> response) {
+                        String result = response.body().getResult();
+                        Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                        getFragmentManager().popBackStackImmediate();
+                    }
+
+                    @Override
+                    public void onFailure(Call<PesanResponseModel> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+
 
         return view;
+    }
+
+    private void updateLabel() {
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        edtTglPesan.setText(sdf.format(myCalendar.getTime()));
     }
 
     @Override
@@ -100,8 +163,6 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
         int id_view = parent.getId();
 
         if (id_view == R.id.sp_poli) {
-
-
             Toast.makeText(
                     getActivity().getApplicationContext(),
                     String.valueOf(mItems.get(position).getId_poli()) + " Selected",
@@ -146,11 +207,13 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
                     getActivity().getApplicationContext(),
                     String.valueOf(mItems2.get(position).getId_poli_dokter()) + " Selected",
                     Toast.LENGTH_LONG).show();
-        } else if(id_view == R.id.sp_asuransi){
+            id_poli_dokter = mItems2.get(position).getId_poli_dokter();
+        } else if (id_view == R.id.sp_asuransi) {
             Toast.makeText(
                     getActivity().getApplicationContext(),
                     String.valueOf(mItems3.get(position).getId_asuransi()) + " Selected",
                     Toast.LENGTH_LONG).show();
+                    id_asuransi = mItems3.get(position).getId_asuransi();
 
         }
 //        Toast.makeText(
@@ -168,44 +231,47 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
-                    case R.id.rb_pribadi:
-                        sp_asuransi.setVisibility(View.GONE);
-                        tvAsuransi.setVisibility(View.GONE);
-                        break;
-                    case R.id.rb_bpjs:
-                        sp_asuransi.setVisibility(View.GONE);
-                        tvAsuransi.setVisibility(View.GONE);
-                        break;
-                    case R.id.rb_asuransi:
-                        sp_asuransi.setVisibility(View.VISIBLE);
-                        tvAsuransi.setVisibility(View.VISIBLE);
-                        Call<AsuransiResponseModel> getDataAsuransi = api.getAsuransi();
-                        getDataAsuransi.enqueue(new Callback<AsuransiResponseModel>() {
-                            @Override
-                            public void onResponse(Call<AsuransiResponseModel> call, Response<AsuransiResponseModel> response) {
-                                try {
-                                    mItems3 = response.body().getResult();
-                                    int jml3 = mItems3.size();
-                                    for(int i = 0; i < jml3; i++){
-                                        mList3.add(mItems3.get(i).getNama_asuransi());
-                                    }
-                                    ArrayAdapter<String> spinnerAdapter3 = new ArrayAdapter<String>(context, R.layout.spinner_item, mList3);
-                                    spinnerAdapter3.setDropDownViewResource(R.layout.spinner_dropdown_item);
-                                    spinnerAdapter3.notifyDataSetChanged();
-                                    sp_asuransi.setAdapter(spinnerAdapter3);
-
-                                } catch (Exception e){
-
-                                }
+        switch (checkedId) {
+            case R.id.rb_pribadi:
+                sp_asuransi.setVisibility(View.GONE);
+                tvAsuransi.setVisibility(View.GONE);
+                kategori = "Pribadi";
+                break;
+            case R.id.rb_bpjs:
+                sp_asuransi.setVisibility(View.GONE);
+                tvAsuransi.setVisibility(View.GONE);
+                kategori = "Bpjs";
+                break;
+            case R.id.rb_asuransi:
+                sp_asuransi.setVisibility(View.VISIBLE);
+                tvAsuransi.setVisibility(View.VISIBLE);
+                kategori = "Asuransi";
+                Call<AsuransiResponseModel> getDataAsuransi = api.getAsuransi();
+                getDataAsuransi.enqueue(new Callback<AsuransiResponseModel>() {
+                    @Override
+                    public void onResponse(Call<AsuransiResponseModel> call, Response<AsuransiResponseModel> response) {
+                        try {
+                            mItems3 = response.body().getResult();
+                            int jml3 = mItems3.size();
+                            for (int i = 0; i < jml3; i++) {
+                                mList3.add(mItems3.get(i).getNama_asuransi());
                             }
+                            ArrayAdapter<String> spinnerAdapter3 = new ArrayAdapter<String>(context, R.layout.spinner_item, mList3);
+                            spinnerAdapter3.setDropDownViewResource(R.layout.spinner_dropdown_item);
+                            spinnerAdapter3.notifyDataSetChanged();
+                            sp_asuransi.setAdapter(spinnerAdapter3);
 
-                            @Override
-                            public void onFailure(Call<AsuransiResponseModel> call, Throwable t) {
+                        } catch (Exception e) {
 
-                            }
-                        });
-                        break;
-                }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<AsuransiResponseModel> call, Throwable t) {
+
+                    }
+                });
+                break;
+        }
     }
 }
