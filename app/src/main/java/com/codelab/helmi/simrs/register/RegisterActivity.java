@@ -51,6 +51,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onResponse(Call<RegisterResponseModel> call, Response<RegisterResponseModel> response) {
                 Toast.makeText(RegisterActivity.this, response.body().getResult().toString(), Toast.LENGTH_SHORT).show();
+                if(response.body().getResult().toString().equals("Data Tersimpan")){
+                    finish();
+                }
 
             }
 

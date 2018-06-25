@@ -1,5 +1,6 @@
 package com.codelab.helmi.simrs.api;
 
+import com.codelab.helmi.simrs.history.HistoryResponseModel;
 import com.codelab.helmi.simrs.jadwal_cuti.JadwalCutiResponseModel;
 import com.codelab.helmi.simrs.jadwal_dokter.JadwalDokterResponseModel;
 import com.codelab.helmi.simrs.login.LoginResponseModel;
@@ -21,6 +22,7 @@ public interface RestApi {
     //read
     @GET("jadwal_dokter.php")
     Call<JadwalDokterResponseModel> getJadwalDokter();
+
     @GET("jadwal_cuti.php")
     Call<JadwalCutiResponseModel> getJadwalCuti();
 
@@ -49,4 +51,7 @@ public interface RestApi {
                                            @Field("status_persetujuan") String status_persetujuan,
                                            @Field("id_poli_dokter") String id_poli_dokter,
                                            @Field("id_asuransi") String id_asuransi);
+    @GET("tampil_riwayat_pesan_online.php")
+    Call<HistoryResponseModel> getPesanOnline();
+
 }
