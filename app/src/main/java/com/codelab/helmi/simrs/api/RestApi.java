@@ -52,6 +52,6 @@ public interface RestApi {
                                            @Field("id_poli_dokter") String id_poli_dokter,
                                            @Field("id_asuransi") String id_asuransi);
     @GET("tampil_riwayat_pesan_online.php")
-    Call<HistoryResponseModel> getPesanOnline();
+    Call<HistoryResponseModel> getPesanOnline(@Query("no_rm") String no_rm);
 
 }

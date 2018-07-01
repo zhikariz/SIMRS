@@ -25,7 +25,8 @@ public class JadwalDokterModel implements Parcelable {
     private String minggu;
     @SerializedName("spesialis")
     private String spesialis;
-
+    @SerializedName("gambar")
+    private String gambar;
 
     public String getDokter() {
         return dokter;
@@ -99,6 +100,13 @@ public class JadwalDokterModel implements Parcelable {
         this.spesialis = spesialis;
     }
 
+    public String getGambar() {
+        return gambar;
+    }
+
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
+    }
 
     @Override
     public int describeContents() {
@@ -116,6 +124,7 @@ public class JadwalDokterModel implements Parcelable {
         dest.writeString(this.sabtu);
         dest.writeString(this.minggu);
         dest.writeString(this.spesialis);
+        dest.writeString(this.gambar);
     }
 
     public JadwalDokterModel() {
@@ -131,6 +140,7 @@ public class JadwalDokterModel implements Parcelable {
         this.sabtu = in.readString();
         this.minggu = in.readString();
         this.spesialis = in.readString();
+        this.gambar = in.readString();
     }
 
     public static final Parcelable.Creator<JadwalDokterModel> CREATOR = new Parcelable.Creator<JadwalDokterModel>() {
