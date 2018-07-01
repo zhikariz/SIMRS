@@ -64,9 +64,14 @@ public class HistoryFragment extends Fragment {
         getData.enqueue(new Callback<HistoryResponseModel>() {
             @Override
             public void onResponse(Call<HistoryResponseModel> call, Response<HistoryResponseModel> response) {
+                try {
                     mItems = response.body().getResult();
-                mAdapter = new HistoryRecyclerAdapter(mItems,getActivity().getApplicationContext(),getFragmentManager());
-                mRecycler.setAdapter(mAdapter);
+                    mAdapter = new HistoryRecyclerAdapter(mItems,getActivity().getApplicationContext(),getFragmentManager());
+                    mRecycler.setAdapter(mAdapter);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
 
             @Override

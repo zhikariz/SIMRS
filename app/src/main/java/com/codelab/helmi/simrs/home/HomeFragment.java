@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.codelab.helmi.simrs.jadwal_cuti.JadwalCutiFragment;
 import com.codelab.helmi.simrs.jadwal_dokter.JadwalDokterFragment;
 import com.codelab.helmi.simrs.layanan.LayananFragment;
@@ -43,13 +44,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void initView() {
         ivLayanan = view.findViewById(R.id.iv_layanan);
+        Glide.with(this).load(R.drawable.ic_layanan).into(ivLayanan);
         ivLayanan.setOnClickListener(this);
+
         ivJadwalCuti = view.findViewById(R.id.iv_jadwal_cuti);
+        Glide.with(this).load(R.drawable.ic_cuti).into(ivJadwalCuti);
         ivJadwalCuti.setOnClickListener(this);
+
         ivJadwalDokter = view.findViewById(R.id.iv_jadwal_dokter);
+        Glide.with(this).load(R.drawable.ic_jadwal_dokter).into(ivJadwalDokter);
         ivJadwalDokter.setOnClickListener(this);
+
         ivPesan = view.findViewById(R.id.iv_pesan);
         ivPesan.setOnClickListener(this);
+        Glide.with(this).load(R.drawable.ic_pesan).into(ivPesan);
     }
 
     private void callFragment(Fragment fragment){

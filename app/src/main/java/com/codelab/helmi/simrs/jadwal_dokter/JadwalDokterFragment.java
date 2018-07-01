@@ -105,11 +105,16 @@ public class JadwalDokterFragment extends Fragment implements SwipeRefreshLayout
         getData.enqueue(new Callback<JadwalDokterResponseModel>() {
             @Override
             public void onResponse(Call<JadwalDokterResponseModel> call, Response<JadwalDokterResponseModel> response) {
-                mItems = response.body().getResult();
+                try {
+                    mItems = response.body().getResult();
 
-                mAdapter = new JadwalDokterRecyclerAdapter(getActivity().getApplicationContext(), mItems,getFragmentManager());
-                mRecycler.setAdapter(mAdapter);
-                swipeRefreshLayout.setRefreshing(false);
+                    mAdapter = new JadwalDokterRecyclerAdapter(getActivity().getApplicationContext(), mItems,getFragmentManager());
+                    mRecycler.setAdapter(mAdapter);
+                    swipeRefreshLayout.setRefreshing(false);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
