@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.codelab.helmi.simrs.R;
 import com.codelab.helmi.simrs.api.RestApi;
 import com.codelab.helmi.simrs.api.RestServer;
+import com.codelab.helmi.simrs.api.SharedPrefManager;
 import com.codelab.helmi.simrs.jadwal_dokter.JadwalDokterModel;
 import com.codelab.helmi.simrs.jadwal_dokter.JadwalDokterRecyclerAdapter;
 import com.codelab.helmi.simrs.jadwal_dokter.JadwalDokterResponseModel;
@@ -40,6 +41,8 @@ public class HistoryFragment extends Fragment {
     private static Bundle mBundleRecyclerViewState;
     private final String KEY_RECYCLER_STATE = "recycler_state";
 
+    SharedPrefManager sharedPrefManager;
+
 
 
     public HistoryFragment() {
@@ -52,15 +55,17 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.recycler_content, container, false);
+        sharedPrefManager = new SharedPrefManager(getActivity().getApplicationContext());
         initView();
         loadData();
+
         return view;
 
     }
 
     private void loadData() {
         RestApi api = RestServer.getClient().create(RestApi.class);
-        Call<HistoryResponseModel> getData = api.getPesanOnline();
+        Call<HistoryResponseModel> getData = api.getPesanOnline(sharedPrefManager.getSpNoRm());
         getData.enqueue(new Callback<HistoryResponseModel>() {
             @Override
             public void onResponse(Call<HistoryResponseModel> call, Response<HistoryResponseModel> response) {

@@ -8,8 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codelab.helmi.simrs.R;
 import com.codelab.helmi.simrs.jadwal_dokter.detail.DetailJadwalDokterFragment;
 
@@ -20,6 +22,7 @@ public class JadwalDokterRecyclerAdapter extends RecyclerView.Adapter<JadwalDokt
     List<JadwalDokterModel> mList;
     Context ctx;
     FragmentManager fragmentManager;
+
 
     public JadwalDokterRecyclerAdapter(Context ctx, List<JadwalDokterModel> mList, FragmentManager fragmentManager) {
         this.mList = mList;
@@ -39,6 +42,7 @@ public class JadwalDokterRecyclerAdapter extends RecyclerView.Adapter<JadwalDokt
     public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
         holder.nama.setText(mList.get(position).getDokter());
         holder.spesialis.setText(mList.get(position).getSpesialis());
+        Glide.with(this.ctx).load(mList.get(position).getGambar()).into(holder.ivDokter);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +80,14 @@ public class JadwalDokterRecyclerAdapter extends RecyclerView.Adapter<JadwalDokt
 
     public class MyHolder extends RecyclerView.ViewHolder {
         TextView nama, spesialis, usia;
+        ImageView ivDokter;
 
         public MyHolder(View v) {
             super(v);
 
             nama = (TextView) v.findViewById(R.id.tv_jadwal_dokter_nama);
             spesialis = (TextView) v.findViewById(R.id.tv_jadwal_dokter_spesialis);
+            ivDokter = (ImageView) v.findViewById(R.id.iv_dokter);
 
 
         }

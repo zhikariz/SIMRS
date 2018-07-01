@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.codelab.helmi.simrs.R;
 import com.codelab.helmi.simrs.api.RestApi;
 import com.codelab.helmi.simrs.api.RestServer;
+import com.codelab.helmi.simrs.api.SharedPrefManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,6 +59,8 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
     Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener date;
 
+    SharedPrefManager sharedPrefManager;
+
 
     public PesanFragment() {
         // Required empty public constructor
@@ -81,6 +84,8 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
         tvAsuransi = view.findViewById(R.id.tv_asuransi);
         edtTglPesan = view.findViewById(R.id.edt_tgl_pesan);
         btnSubmit = view.findViewById(R.id.btn_submit_pesan);
+
+        sharedPrefManager = new SharedPrefManager(getActivity().getApplicationContext());
 
         date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -137,14 +142,19 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<PesanResponseModel> postData = api.postDataPesan(kategori, edtTglPesan.getText().toString(), "112233", "Belum disetujui", id_poli_dokter, id_asuransi);
+                Call<PesanResponseModel> postData = api.postDataPesan(kategori, edtTglPesan.getText().toString(), sharedPrefManager.getSpNoRm(), "Belum disetujui", id_poli_dokter, id_asuransi);
                 postData.enqueue(new Callback<PesanResponseModel>() {
                     @Override
                     public void onResponse(Call<PesanResponseModel> call, Response<PesanResponseModel> response) {
                         try {
                             String result = response.body().getResult();
-                            Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-                            getFragmentManager().popBackStackImmediate();
+                            if (result.equals("Gagal Pesan! , Form Masih Kosong")){
+                                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                getFragmentManager().popBackStackImmediate();
+                            }
+
                         } catch (Exception e){
                             e.printStackTrace();
                         }
@@ -175,10 +185,10 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
         int id_view = parent.getId();
 
         if (id_view == R.id.sp_poli) {
-            Toast.makeText(
-                    getActivity().getApplicationContext(),
-                    String.valueOf(mItems.get(position).getId_poli()) + " Selected",
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(
+//                    getActivity().getApplicationContext(),
+//                    String.valueOf(mItems.get(position).getId_poli()) + " Selected",
+//                    Toast.LENGTH_LONG).show();
 
             Call<PoliDokterResponseModel> getDataDokter = api.getPoliDokter(mItems.get(position).getId_poli());
             getDataDokter.enqueue(new Callback<PoliDokterResponseModel>() {
