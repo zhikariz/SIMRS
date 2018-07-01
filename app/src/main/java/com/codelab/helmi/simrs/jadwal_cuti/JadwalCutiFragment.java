@@ -72,11 +72,16 @@ public class JadwalCutiFragment extends Fragment implements SwipeRefreshLayout.O
         getData.enqueue(new Callback<JadwalCutiResponseModel>() {
             @Override
             public void onResponse(Call<JadwalCutiResponseModel> call, Response<JadwalCutiResponseModel> response) {
-                mItems = response.body().getResult();
+                try {
+                    mItems = response.body().getResult();
 
-                mAdapter = new JadwalCutiRecyclerAdapter(getActivity().getApplicationContext(), mItems);
-                mRecycler.setAdapter(mAdapter);
-                swipeRefreshLayout.setRefreshing(false);
+                    mAdapter = new JadwalCutiRecyclerAdapter(getActivity().getApplicationContext(), mItems);
+                    mRecycler.setAdapter(mAdapter);
+                    swipeRefreshLayout.setRefreshing(false);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
@@ -85,5 +90,4 @@ public class JadwalCutiFragment extends Fragment implements SwipeRefreshLayout.O
             }
         });
     }
-
 }

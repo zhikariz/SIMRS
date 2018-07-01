@@ -39,7 +39,7 @@ import retrofit2.Response;
 public class PesanFragment extends Fragment implements AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
     View view;
     Spinner sp_poli, sp_dokter, sp_asuransi;
-    String kategori,id_poli_dokter,id_asuransi;
+    String kategori, id_poli_dokter, id_asuransi;
     EditText edtTglPesan;
     Context context;
     List<PoliData> mItems = new ArrayList<>();
@@ -96,9 +96,12 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
         edtTglPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(getActivity(), date, myCalendar
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                        myCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialog.show();
+
             }
         });
 
@@ -107,16 +110,20 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
         getDataPoli.enqueue(new Callback<PoliResponseModel>() {
             @Override
             public void onResponse(Call<PoliResponseModel> call, Response<PoliResponseModel> response) {
-                mItems = response.body().getResult();
-                int jml = mItems.size();
+                try {
+                    mItems = response.body().getResult();
+                    int jml = mItems.size();
 
-                for (int i = 0; i < jml; i++) {
-                    mList.add(mItems.get(i).getNama_poli());
+                    for (int i = 0; i < jml; i++) {
+                        mList.add(mItems.get(i).getNama_poli());
+                    }
+                    ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, R.layout.spinner_item, mList);
+                    spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+                    spinnerAdapter.notifyDataSetChanged();
+                    sp_poli.setAdapter(spinnerAdapter);
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-                ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, R.layout.spinner_item, mList);
-                spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-                spinnerAdapter.notifyDataSetChanged();
-                sp_poli.setAdapter(spinnerAdapter);
 
 
             }
@@ -130,13 +137,18 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<PesanResponseModel> postData = api.postDataPesan(kategori,edtTglPesan.getText().toString(),"112233","Belum disetujui",id_poli_dokter,id_asuransi);
+                Call<PesanResponseModel> postData = api.postDataPesan(kategori, edtTglPesan.getText().toString(), "112233", "Belum disetujui", id_poli_dokter, id_asuransi);
                 postData.enqueue(new Callback<PesanResponseModel>() {
                     @Override
                     public void onResponse(Call<PesanResponseModel> call, Response<PesanResponseModel> response) {
-                        String result = response.body().getResult();
-                        Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-                        getFragmentManager().popBackStackImmediate();
+                        try {
+                            String result = response.body().getResult();
+                            Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                            getFragmentManager().popBackStackImmediate();
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+
                     }
 
                     @Override
@@ -203,17 +215,9 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
 
 
         } else if (id_view == R.id.sp_dokter) {
-            Toast.makeText(
-                    getActivity().getApplicationContext(),
-                    String.valueOf(mItems2.get(position).getId_poli_dokter()) + " Selected",
-                    Toast.LENGTH_LONG).show();
             id_poli_dokter = mItems2.get(position).getId_poli_dokter();
         } else if (id_view == R.id.sp_asuransi) {
-            Toast.makeText(
-                    getActivity().getApplicationContext(),
-                    String.valueOf(mItems3.get(position).getId_asuransi()) + " Selected",
-                    Toast.LENGTH_LONG).show();
-                    id_asuransi = mItems3.get(position).getId_asuransi();
+            id_asuransi = mItems3.get(position).getId_asuransi();
 
         }
 //        Toast.makeText(
@@ -262,7 +266,7 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
                             sp_asuransi.setAdapter(spinnerAdapter3);
 
                         } catch (Exception e) {
-
+            e.printStackTrace();
                         }
                     }
 

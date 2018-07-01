@@ -1,82 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:background="@drawable/ic_background"
     tools:context=".register.RegisterActivity">
 
-    <TextView
+    <ImageView
+        android:id="@+id/register_gambar_rs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#000"
-        android:text="Sistem Informasi Rumah Sakit Kasih Ibu Surakarta"/>
+        />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textColor="#000"
-        android:textStyle="bold"
-        android:text="Form Register Pasien Lama"/>
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginTop="20dp"
-        android:textColor="#000"
-        android:text="Nomor RM"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Nomor RM"
+            android:textColor="#000"
+            android:textSize="14sp" />
 
-    <EditText
-        android:id="@+id/et_no_rm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Masukkan Nomor RM"/>
+        <EditText
+            android:id="@+id/et_no_rm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Masukkan Nomor RM" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginTop="10dp"
-        android:textColor="#000"
-        android:text="Password"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Password"
+            android:textColor="#000"
+            android:textSize="14sp" />
 
-    <EditText
-        android:id="@+id/et_password"
-        android:layout_width="match_parent"
-        android:hint="Masukkan Password"
-        android:inputType="textPassword"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Masukkan Password"
+            android:inputType="textPassword" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginTop="10dp"
-        android:textColor="#000"
-        android:text="Ulangi Password"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Ulangi Password"
+            android:textColor="#000"
+            android:textSize="14sp" />
 
-    <EditText
-        android:id="@+id/et_password2"
-        android:layout_width="match_parent"
-        android:inputType="textPassword"
-        android:hint="Masukkan Kembali Password"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_password2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Masukkan Kembali Password"
+            android:inputType="textPassword" />
 
-    <Button
-        android:id="@+id/btn_register"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="Submit"/>
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="daftar"
+            android:textAllCaps="true" />
 
+    </LinearLayout>
 </LinearLayout>

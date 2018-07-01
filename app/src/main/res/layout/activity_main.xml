@@ -5,26 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:background="@drawable/ic_background"
     tools:context=".MainActivity">
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#000"
-        android:text="Sistem Informasi Rumah Sakit Kasih Ibu Surakarta"/>
-
     <ImageView
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:scaleType="centerCrop"
+        android:id="@+id/gambar_rs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/rsu_kasih_ibu"/>
+        />
+
+    <LinearLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/logo_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        app:civ_border_color="#FF000000"
+        android:layout_marginBottom="20dp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,8 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="#000"
-            android:textAllCaps="false"
-            android:text="Login"/>
+            android:text="MASUK"/>
 
         <Button
             android:id="@+id/btnRegister"
@@ -46,9 +49,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="#000"
-            android:textAllCaps="false"
-            android:text="Register"/>
+            android:text="DAFTAR"/>
 
+    </LinearLayout>
     </LinearLayout>
 
 
