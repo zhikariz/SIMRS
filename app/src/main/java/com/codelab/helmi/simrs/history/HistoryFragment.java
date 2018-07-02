@@ -44,7 +44,6 @@ public class HistoryFragment extends Fragment {
     SharedPrefManager sharedPrefManager;
 
 
-
     public HistoryFragment() {
         // Required empty public constructor
     }
@@ -71,9 +70,9 @@ public class HistoryFragment extends Fragment {
             public void onResponse(Call<HistoryResponseModel> call, Response<HistoryResponseModel> response) {
                 try {
                     mItems = response.body().getResult();
-                    mAdapter = new HistoryRecyclerAdapter(mItems,getActivity().getApplicationContext(),getFragmentManager());
+                    mAdapter = new HistoryRecyclerAdapter(mItems, getActivity().getApplicationContext(), getFragmentManager());
                     mRecycler.setAdapter(mAdapter);
-                } catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -81,7 +80,7 @@ public class HistoryFragment extends Fragment {
 
             @Override
             public void onFailure(Call<HistoryResponseModel> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
     }
