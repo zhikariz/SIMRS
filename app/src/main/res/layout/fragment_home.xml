@@ -16,12 +16,10 @@
 
         <!-- TODO: Update blank fragment layout -->
 
-        <ImageView
+        <com.glide.slider.library.SliderLayout
+            android:id="@+id/slider"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/rsu_kasih_ibu" />
+            android:layout_height="200dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

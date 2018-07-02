@@ -6,10 +6,9 @@
     tools:context=".layanan.LayananFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ImageView
-        android:id="@+id/layanan_gambar"
+    <com.glide.slider.library.SliderLayout
+        android:id="@+id/slider_layanan"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
