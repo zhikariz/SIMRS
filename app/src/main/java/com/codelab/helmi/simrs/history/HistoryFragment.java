@@ -70,6 +70,7 @@ public class HistoryFragment extends Fragment {
             @Override
             public void onResponse(Call<HistoryResponseModel> call, Response<HistoryResponseModel> response) {
                 try {
+
                     mItems = response.body().getResult();
                     mAdapter = new HistoryRecyclerAdapter(mItems,getActivity().getApplicationContext(),getFragmentManager());
                     mRecycler.setAdapter(mAdapter);
