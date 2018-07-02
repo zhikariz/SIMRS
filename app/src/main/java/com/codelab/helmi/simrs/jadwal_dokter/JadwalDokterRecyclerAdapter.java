@@ -59,6 +59,7 @@ public class JadwalDokterRecyclerAdapter extends RecyclerView.Adapter<JadwalDokt
                 jadwalDokterModel.setJumat(mList.get(position).getJumat());
                 jadwalDokterModel.setSabtu(mList.get(position).getSabtu());
                 jadwalDokterModel.setMinggu(mList.get(position).getMinggu());
+                jadwalDokterModel.setGambar(mList.get(position).getGambar());
 
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(DetailJadwalDokterFragment.EXTRA_JADWAL_DOKTER, jadwalDokterModel);

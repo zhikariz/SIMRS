@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codelab.helmi.simrs.R;
 import com.codelab.helmi.simrs.jadwal_dokter.JadwalDokterModel;
 
@@ -21,6 +23,7 @@ public class DetailJadwalDokterFragment extends Fragment {
     TextView tvNama, tvSpesialis, tvSenin, tvSelasa, tvRabu, tvKamis, tvJumat, tvSabtu, tvMinggu;
     Bundle bundle;
     JadwalDokterModel jadwalDokterModel;
+    ImageView ivDetailDokter;
 
 
     public DetailJadwalDokterFragment() {
@@ -48,6 +51,7 @@ public class DetailJadwalDokterFragment extends Fragment {
         tvJumat = view.findViewById(R.id.tv_detail_jadwal_dokter_jumat);
         tvSabtu = view.findViewById(R.id.tv_detail_jadwal_dokter_sabtu);
         tvMinggu = view.findViewById(R.id.tv_detail_jadwal_dokter_minggu);
+        ivDetailDokter = view.findViewById(R.id.iv_detail_dokter);
 
     }
 
@@ -63,6 +67,7 @@ public class DetailJadwalDokterFragment extends Fragment {
         tvJumat.setText(jadwalDokterModel.getJumat());
         tvSabtu.setText(jadwalDokterModel.getSabtu());
         tvMinggu.setText(jadwalDokterModel.getMinggu());
+        Glide.with(this).load(jadwalDokterModel.getGambar()).into(ivDetailDokter);
 
 
     }
