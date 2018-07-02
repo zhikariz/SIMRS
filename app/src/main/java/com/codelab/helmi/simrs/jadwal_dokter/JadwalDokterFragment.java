@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.codelab.helmi.simrs.R;
 import com.codelab.helmi.simrs.api.RestApi;
@@ -105,11 +106,16 @@ public class JadwalDokterFragment extends Fragment implements SwipeRefreshLayout
         getData.enqueue(new Callback<JadwalDokterResponseModel>() {
             @Override
             public void onResponse(Call<JadwalDokterResponseModel> call, Response<JadwalDokterResponseModel> response) {
-                mItems = response.body().getResult();
+                try {
+                    mItems = response.body().getResult();
 
-                mAdapter = new JadwalDokterRecyclerAdapter(getActivity().getApplicationContext(), mItems,getFragmentManager());
-                mRecycler.setAdapter(mAdapter);
-                swipeRefreshLayout.setRefreshing(false);
+                    mAdapter = new JadwalDokterRecyclerAdapter(getActivity().getApplicationContext(), mItems,getFragmentManager());
+                    mRecycler.setAdapter(mAdapter);
+                    swipeRefreshLayout.setRefreshing(false);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
 
             @Override

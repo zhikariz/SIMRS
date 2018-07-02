@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.codelab.helmi.simrs.R;
 import com.codelab.helmi.simrs.api.RestApi;
 import com.codelab.helmi.simrs.api.RestServer;
@@ -21,6 +23,7 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     EditText etNoRm, etPassword, etPassword2;
     Button btnRegister;
+    ImageView ivRs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         btnRegister = (Button) findViewById(R.id.btn_register);
 
         btnRegister.setOnClickListener(this);
+
+        ivRs = findViewById(R.id.register_gambar_rs);
+        Glide.with(this).load(R.drawable.rsu_kasih_ibu).into(ivRs);
     }
 
     private void addUser(){
@@ -51,6 +57,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onResponse(Call<RegisterResponseModel> call, Response<RegisterResponseModel> response) {
                 Toast.makeText(RegisterActivity.this, response.body().getResult().toString(), Toast.LENGTH_SHORT).show();
+                if(response.body().getResult().toString().equals("Data Tersimpan")){
+                    finish();
+                }
 
             }
 
