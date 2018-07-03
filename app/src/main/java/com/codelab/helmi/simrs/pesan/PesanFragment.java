@@ -41,6 +41,7 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
     View view;
     Spinner sp_poli, sp_dokter, sp_asuransi;
     String kategori, id_poli_dokter, id_asuransi;
+    View vSp;
     EditText edtTglPesan;
     Context context;
     List<PoliData> mItems = new ArrayList<>();
@@ -84,6 +85,7 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
         tvAsuransi = view.findViewById(R.id.tv_asuransi);
         edtTglPesan = view.findViewById(R.id.edt_tgl_pesan);
         btnSubmit = view.findViewById(R.id.btn_submit_pesan);
+        vSp = view.findViewById(R.id.view_sp);
 
         sharedPrefManager = new SharedPrefManager(getActivity().getApplicationContext());
 
@@ -249,16 +251,19 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
             case R.id.rb_pribadi:
                 sp_asuransi.setVisibility(View.GONE);
                 tvAsuransi.setVisibility(View.GONE);
+                vSp.setVisibility(View.GONE);
                 kategori = "Pribadi";
                 break;
             case R.id.rb_bpjs:
                 sp_asuransi.setVisibility(View.GONE);
                 tvAsuransi.setVisibility(View.GONE);
+                vSp.setVisibility(View.GONE);
                 kategori = "Bpjs";
                 break;
             case R.id.rb_asuransi:
                 sp_asuransi.setVisibility(View.VISIBLE);
                 tvAsuransi.setVisibility(View.VISIBLE);
+                vSp.setVisibility(View.VISIBLE);
                 kategori = "Asuransi";
                 Call<AsuransiResponseModel> getDataAsuransi = api.getAsuransi();
                 getDataAsuransi.enqueue(new Callback<AsuransiResponseModel>() {

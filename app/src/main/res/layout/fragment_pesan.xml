@@ -3,36 +3,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_background_home"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@drawable/ic_background_home"
     tools:context=".pesan.PesanFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Poli" />
+        android:text="Poli"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/sp_poli"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#000" />
+
     <TextView
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dokter" />
+        android:text="Dokter"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#fff"
+        android:textSize="18sp" />
 
     <Spinner
         android:id="@+id/sp_dokter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#000" />
+
     <RadioGroup
         android:id="@+id/rg_kategori"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -40,21 +61,32 @@
             android:id="@+id/rb_pribadi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pribadi" />
+
+            android:text="Pribadi"
+            android:textAllCaps="true"
+            android:textColor="#fff"
+
+            android:textSize="18sp" />
 
         <RadioButton
             android:id="@+id/rb_bpjs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="BPJS" />
+            android:text="BPJS"
+            android:textAllCaps="true"
+            android:textColor="#fff"
+            android:textSize="18sp" />
 
         <RadioButton
             android:id="@+id/rb_asuransi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="Asuransi" />
+            android:text="Asuransi"
+            android:textAllCaps="true"
+            android:textColor="#fff"
+            android:textSize="18sp" />
     </RadioGroup>
 
     <TextView
@@ -62,24 +94,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Asuransi"
+        android:textAllCaps="true"
+        android:textAlignment="center"
+        android:textColor="#fff"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
         android:visibility="gone" />
 
-   <Spinner
-       android:id="@+id/sp_asuransi"
-       android:layout_width="match_parent"
-       android:visibility="gone"
-       android:layout_height="wrap_content"/>
+    <Spinner
+        android:id="@+id/sp_asuransi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/view_sp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#000"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tanggal" />
+        android:layout_marginTop="10dp"
+        android:text="Tanggal"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#fff"
+        android:textSize="18sp" />
 
     <EditText
-        android:focusable="false"
         android:id="@+id/edt_tgl_pesan"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#fff"
+        android:textAllCaps="true"
+        android:padding="16dp"
+        android:focusable="false" />
 
     <Button
         android:id="@+id/btn_submit_pesan"
