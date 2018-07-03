@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@drawable/ic_background_home"
     tools:context=".history.detail.DetailHistoryFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -17,10 +18,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="145dp"
+            android:textSize="18sp"
             android:text="No RM"/>
 
         <TextView
             android:id="@+id/tv_detail_history_no_rm"
+            android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -34,10 +37,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="145dp"
+            android:textSize="18sp"
             android:text="Tanggal Presan"/>
 
         <TextView
             android:id="@+id/tv_detail_history_tgl_pesan"
+            android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -50,11 +55,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="18sp"
             android:width="145dp"
             android:text="Nama Poli"/>
 
         <TextView
             android:id="@+id/tv_detail_history_nama_poli"
+            android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -68,10 +75,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="145dp"
+            android:textSize="18sp"
             android:text="Nama Dokter"/>
 
         <TextView
             android:id="@+id/tv_detail_history_nama_dokter"
+            android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -84,11 +93,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="18sp"
             android:width="145dp"
             android:text="Kategori Pembayaran"/>
 
         <TextView
             android:id="@+id/tv_detail_history_kategori"
+            android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -101,11 +112,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="18sp"
             android:width="145dp"
             android:text="Nama Asuransi"/>
 
         <TextView
             android:id="@+id/tv_detail_history_nama_asuransi"
+            android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -118,11 +131,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="18sp"
             android:width="145dp"
             android:text="Status Persetujuan"/>
 
         <TextView
             android:id="@+id/tv_detail_history_status"
+            android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
