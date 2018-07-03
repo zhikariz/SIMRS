@@ -2,6 +2,7 @@ package com.codelab.helmi.simrs.history;
 
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,7 +31,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     View view;
     private RecyclerView mRecycler;
     private RecyclerView.Adapter mAdapter;
@@ -56,7 +57,6 @@ public class HistoryFragment extends Fragment {
         view = inflater.inflate(R.layout.recycler_content, container, false);
         sharedPrefManager = new SharedPrefManager(getActivity().getApplicationContext());
         initView();
-        loadData();
 
         return view;
 
@@ -69,10 +69,10 @@ public class HistoryFragment extends Fragment {
             @Override
             public void onResponse(Call<HistoryResponseModel> call, Response<HistoryResponseModel> response) {
                 try {
-
                     mItems = response.body().getResult();
                     mAdapter = new HistoryRecyclerAdapter(mItems, getActivity().getApplicationContext(), getFragmentManager());
                     mRecycler.setAdapter(mAdapter);
+                    swipeRefreshLayout.setRefreshing(false);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -82,6 +82,7 @@ public class HistoryFragment extends Fragment {
             @Override
             public void onFailure(Call<HistoryResponseModel> call, Throwable t) {
                 t.printStackTrace();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -90,6 +91,42 @@ public class HistoryFragment extends Fragment {
         mRecycler = view.findViewById(R.id.recyclerTemp);
         mManager = new LinearLayoutManager(getActivity().getApplicationContext());
         mRecycler.setLayoutManager(mManager);
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(true);
+        mRecycler.removeAllViewsInLayout();
+        loadData();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mBundleRecyclerViewState = new Bundle();
+        Parcelable listState = mRecycler.getLayoutManager().onSaveInstanceState();
+        mBundleRecyclerViewState.putParcelable(KEY_RECYCLER_STATE, listState);
+        mAdapter = mRecycler.getAdapter();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mBundleRecyclerViewState != null){
+            Parcelable listState = mBundleRecyclerViewState.getParcelable(KEY_RECYCLER_STATE);
+            mRecycler.getLayoutManager().onRestoreInstanceState(listState);
+            mRecycler.setAdapter(mAdapter);
+        }else if(mBundleRecyclerViewState == null){
+            swipeRefreshLayout.setRefreshing(true);
+            loadData();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mBundleRecyclerViewState = null;
+    }
 }
