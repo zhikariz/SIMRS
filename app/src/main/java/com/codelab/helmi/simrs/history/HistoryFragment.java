@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,16 +32,18 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, SearchView.OnQueryTextListener {
     View view;
     private RecyclerView mRecycler;
-    private RecyclerView.Adapter mAdapter;
+    private HistoryRecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mManager;
     private List<HistoryData> mItems = new ArrayList<>();
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private static Bundle mBundleRecyclerViewState;
     private final String KEY_RECYCLER_STATE = "recycler_state";
+
+    SearchView searchView;
 
     SharedPrefManager sharedPrefManager;
 
@@ -93,6 +96,9 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
         mRecycler.setLayoutManager(mManager);
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
+        searchView = view.findViewById(R.id.search_view);
+        searchView.setOnClickListener(this);
+        searchView.setOnQueryTextListener(this);
     }
 
     @Override
@@ -108,7 +114,6 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
         mBundleRecyclerViewState = new Bundle();
         Parcelable listState = mRecycler.getLayoutManager().onSaveInstanceState();
         mBundleRecyclerViewState.putParcelable(KEY_RECYCLER_STATE, listState);
-        mAdapter = mRecycler.getAdapter();
     }
 
     @Override
@@ -128,5 +133,25 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
     public void onDestroy() {
         super.onDestroy();
         mBundleRecyclerViewState = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.search_view:
+                searchView.setIconified(false);
+                break;
+        }
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        mAdapter.getFilter().filter(newText);
+        return true;
     }
 }

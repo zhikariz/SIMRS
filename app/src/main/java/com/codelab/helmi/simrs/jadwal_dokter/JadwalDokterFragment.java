@@ -7,10 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+
 
 import com.codelab.helmi.simrs.R;
 import com.codelab.helmi.simrs.api.RestApi;
@@ -27,16 +28,17 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class JadwalDokterFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class JadwalDokterFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, SearchView.OnQueryTextListener {
 
     View view;
     private RecyclerView mRecycler;
-    private RecyclerView.Adapter mAdapter;
+    private JadwalDokterRecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mManager;
     private List<JadwalDokterModel> mItems = new ArrayList<>();
     private SwipeRefreshLayout swipeRefreshLayout;
     private static Bundle mBundleRecyclerViewState;
     private final String KEY_RECYCLER_STATE = "recycler_state";
+    private SearchView searchView;
 
     public JadwalDokterFragment() {
         // Required empty public constructor
@@ -58,7 +60,9 @@ public class JadwalDokterFragment extends Fragment implements SwipeRefreshLayout
         mRecycler.setLayoutManager(mManager);
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
-
+        searchView = view.findViewById(R.id.search_view);
+        searchView.setOnClickListener(this);
+        searchView.setOnQueryTextListener(this);
     }
 
     @Override
@@ -75,7 +79,7 @@ public class JadwalDokterFragment extends Fragment implements SwipeRefreshLayout
         mBundleRecyclerViewState = new Bundle();
         Parcelable listState = mRecycler.getLayoutManager().onSaveInstanceState();
         mBundleRecyclerViewState.putParcelable(KEY_RECYCLER_STATE, listState);
-        mAdapter = mRecycler.getAdapter();
+//        mAdapter =
 
 
     }
@@ -107,11 +111,13 @@ public class JadwalDokterFragment extends Fragment implements SwipeRefreshLayout
             @Override
             public void onResponse(Call<JadwalDokterResponseModel> call, Response<JadwalDokterResponseModel> response) {
                 try {
-                    mItems = response.body().getResult();
+                    if(response.isSuccessful()) {
+                        mItems = response.body().getResult();
 
-                    mAdapter = new JadwalDokterRecyclerAdapter(getActivity().getApplicationContext(), mItems,getFragmentManager());
-                    mRecycler.setAdapter(mAdapter);
-                    swipeRefreshLayout.setRefreshing(false);
+                        mAdapter = new JadwalDokterRecyclerAdapter(getActivity().getApplicationContext(), mItems, getFragmentManager());
+                        mRecycler.setAdapter(mAdapter);
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -124,5 +130,25 @@ public class JadwalDokterFragment extends Fragment implements SwipeRefreshLayout
 
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.search_view:
+                searchView.setIconified(false);
+                break;
+        }
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        mAdapter.getFilter().filter(newText);
+        return true;
     }
 }

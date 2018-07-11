@@ -31,7 +31,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_person_black_24dp"/>
+                    android:src="@drawable/ic_person_black_24dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -41,8 +41,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
                         <TextView
                             android:layout_width="40dp"
@@ -71,17 +71,19 @@
                         android:orientation="horizontal">
 
                         <Button
+                            android:id="@+id/btn_ganti_password"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:text="Ganti Password"/>
+                            android:layout_weight="1"
+                            android:text="Ganti Password" />
 
                         <Button
+                            android:id="@+id/btn_logout"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="Logout"/>
+                            android:layout_weight="1"
+                            android:text="Logout" />
                     </LinearLayout>
 
                 </LinearLayout>

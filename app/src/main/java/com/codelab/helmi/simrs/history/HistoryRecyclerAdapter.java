@@ -1,6 +1,7 @@
 package com.codelab.helmi.simrs.history;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -8,22 +9,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.codelab.helmi.simrs.R;
 import com.codelab.helmi.simrs.history.detail.DetailHistoryFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecyclerAdapter.MyHolder> {
+public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecyclerAdapter.MyHolder> implements Filterable{
 
     List<HistoryData> mList;
+    List<HistoryData> mFilterList;
     Context ctx;
     FragmentManager fragmentManager;
 
 
     public HistoryRecyclerAdapter(List<HistoryData> mList, Context ctx, FragmentManager fragmentManager) {
         this.mList = mList;
+        this.mFilterList = mList;
         this.ctx = ctx;
         this.fragmentManager = fragmentManager;
     }
@@ -38,9 +44,16 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
-            holder.hari_tanggal.setText(mList.get(position).getTanggal_pesan());
-            holder.dokter_poli.setText(mList.get(position).getNama_dokter() + "/" + mList.get(position).getNama_poli());
-            holder.status.setText(mList.get(position).getStatus_persetujuan());
+            holder.hari_tanggal.setText(mFilterList.get(position).getTanggal_pesan());
+            holder.dokter_poli.setText(mFilterList.get(position).getNama_dokter() + "/" + mFilterList.get(position).getNama_poli());
+            holder.status.setText(mFilterList.get(position).getStatus_persetujuan());
+            if(mFilterList.get(position).getStatus_persetujuan().equals("Belum disetujui")){
+                holder.status.setTextColor(Color.parseColor("#ff0000"));
+            }
+            else if(mFilterList.get(position).getStatus_persetujuan().equals("Disetujui")){
+                holder.status.setTextColor(Color.parseColor("#008000"));
+            }
+
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -48,13 +61,13 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
                     DetailHistoryFragment detailHistoryFragment = new DetailHistoryFragment();
                     HistoryData historyData = new HistoryData();
 
-                    historyData.setNo_rm(mList.get(position).getNo_rm());
-                    historyData.setTanggal_pesan(mList.get(position).getTanggal_pesan());
-                    historyData.setNama_poli(mList.get(position).getNama_poli());
-                    historyData.setNama_dokter(mList.get(position).getNama_dokter());
-                    historyData.setKategori(mList.get(position).getKategori());
-                    historyData.setNama_asuransi(mList.get(position).getNama_asuransi());
-                    historyData.setStatus_persetujuan(mList.get(position).getStatus_persetujuan());
+                    historyData.setNo_rm(mFilterList.get(position).getNo_rm());
+                    historyData.setTanggal_pesan(mFilterList.get(position).getTanggal_pesan());
+                    historyData.setNama_poli(mFilterList.get(position).getNama_poli());
+                    historyData.setNama_dokter(mFilterList.get(position).getNama_dokter());
+                    historyData.setKategori(mFilterList.get(position).getKategori());
+                    historyData.setNama_asuransi(mFilterList.get(position).getNama_asuransi());
+                    historyData.setStatus_persetujuan(mFilterList.get(position).getStatus_persetujuan());
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(detailHistoryFragment.EXTRA_HISTORY, historyData);
@@ -71,7 +84,39 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mFilterList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String charString = constraint.toString();
+
+                if(charString.isEmpty()){
+                    mFilterList = mList;
+                } else {
+                    List<HistoryData> filteredList = new ArrayList<>();
+                    for(HistoryData historyData: mList){
+                        if(historyData.getNama_dokter().toLowerCase().contains(charString.toLowerCase()) || historyData.getTanggal_pesan().toLowerCase().contains(charString.toLowerCase()) || historyData.getNama_poli().toLowerCase().contains(charString.toLowerCase())){
+                            filteredList.add(historyData);
+                        }
+                    }
+                    mFilterList = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mFilterList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                mFilterList = (List<HistoryData>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {

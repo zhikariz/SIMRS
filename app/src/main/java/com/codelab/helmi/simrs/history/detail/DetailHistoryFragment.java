@@ -1,6 +1,7 @@
 package com.codelab.helmi.simrs.history.detail;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -58,6 +59,12 @@ public class DetailHistoryFragment extends Fragment {
         tvKategori.setText(historyData.getKategori());
         tvAsuransi.setText(historyData.getNama_asuransi());
         tvStatus.setText(historyData.getStatus_persetujuan());
+        if(historyData.getStatus_persetujuan().equals("Belum disetujui")){
+            tvStatus.setTextColor(Color.parseColor("#ff0000"));
+        }else{
+            tvStatus.setTextColor(Color.parseColor("008000"));
+        }
+
     }
 
 }

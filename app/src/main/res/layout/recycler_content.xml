@@ -13,6 +13,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <android.support.v7.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:defaultQueryHint="Search.."
+            android:iconifiedByDefault="false"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/layout_bg"
+
+            />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerTemp"
             android:layout_width="match_parent"
