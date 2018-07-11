@@ -27,16 +27,23 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="100dp"
+                    android:textSize="17sp"
+                    android:textColor="#000"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="Hari/Tanggal" />
 
                 <TextView
+                    android:textSize="17sp"
+                    android:textColor="#000"
+                    android:textStyle="bold"
                     android:id="@+id/tv_history_tanggal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text=". . . . . . ." />
+                    />
 
             </LinearLayout>
 
@@ -46,13 +53,20 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="100dp"
+                    android:textSize="17sp"
+                    android:textColor="#000"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="Dokter/Poli" />
 
                 <TextView
+                    android:textSize="17sp"
+                    android:textColor="#000"
+                    android:textStyle="bold"
                     android:id="@+id/tv_history_dokter_poli"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text=". . . . . . ." />
@@ -65,13 +79,20 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="100dp"
+                    android:textSize="17sp"
+                    android:textColor="#000"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="Status" />
 
                 <TextView
+                    android:textSize="17sp"
+                    android:textColor="#000"
+                    android:textStyle="bold"
                     android:id="@+id/tv_history_status"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text=". . . . . . ." />

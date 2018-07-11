@@ -1,7 +1,9 @@
 package com.codelab.helmi.simrs.info;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,13 +11,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codelab.helmi.simrs.R;
+import com.codelab.helmi.simrs.api.RestApi;
+import com.codelab.helmi.simrs.api.RestServer;
 import com.codelab.helmi.simrs.api.SharedPrefManager;
+import com.codelab.helmi.simrs.login.LoginActivity;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -27,6 +39,9 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     SharedPrefManager sharedPrefManager;
     TextView tvNoRM;
     LinearLayout lnFb, lnIg;
+    Button btnLogout, btnGantiPassword;
+    RestApi api = RestServer.getClient().create(RestApi.class);
+
     public InfoFragment() {
         // Required empty public constructor
     }
@@ -54,6 +69,11 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
         lnIg = view.findViewById(R.id.ln_ig);
         lnIg.setOnClickListener(this);
+
+        btnLogout = view.findViewById(R.id.btn_logout);
+        btnGantiPassword = view.findViewById(R.id.btn_ganti_password);
+        btnGantiPassword.setOnClickListener(this);
+        btnLogout.setOnClickListener(this);
     }
 
     public static Intent getOpenFacebookIntent(Context context) {
@@ -86,7 +106,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.ln_fb:
                 Intent facebookIntent = getOpenFacebookIntent(this.getContext());
                 startActivity(facebookIntent);
@@ -95,6 +115,64 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                 Intent instagramIntent = getOpenInstagramIntent(this.getContext());
                 startActivity(instagramIntent);
                 break;
+            case R.id.btn_logout:
+                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
+                Toast.makeText(getActivity(), "Berhasil Logout !", Toast.LENGTH_SHORT).show();
+                getActivity().getFragmentManager().popBackStack();
+                startActivity(new Intent(getActivity(), LoginActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                break;
+            case R.id.btn_ganti_password:
+                showAddItemDialog(getActivity());
+                break;
         }
+    }
+
+    private void showAddItemDialog(Context c) {
+        LinearLayout layout = new LinearLayout(c);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        layoutParams.setMargins(30, 20, 30, 0);
+
+        final EditText passwordLama = new EditText(c);
+        passwordLama.setHint("Password Lama");
+        layout.addView(passwordLama,layoutParams);
+
+        final EditText passwordBaru = new EditText(c);
+        passwordBaru.setHint("Password Baru");
+        layout.addView(passwordBaru,layoutParams);
+
+        AlertDialog dialog = new AlertDialog.Builder(c)
+                .setTitle("Ganti Password")
+                .setMessage("Silahkan Masukkan Password Lama dan Baru")
+                .setView(layout)
+                .setPositiveButton("Ganti", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Call<GantiPasswordLoginResponseModel> gantiPasswordLoginResponseModelCall = api.gantiPasswordLogin(sharedPrefManager.getSpNoRm(), passwordLama.getText().toString(), passwordBaru.getText().toString());
+                        gantiPasswordLoginResponseModelCall.enqueue(new Callback<GantiPasswordLoginResponseModel>() {
+                            @Override
+                            public void onResponse(Call<GantiPasswordLoginResponseModel> call, Response<GantiPasswordLoginResponseModel> response) {
+                                try {
+                                    Toast.makeText(getActivity(), response.body().getResult(), Toast.LENGTH_SHORT).show();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<GantiPasswordLoginResponseModel> call, Throwable t) {
+
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
+        dialog.show();
     }
 }

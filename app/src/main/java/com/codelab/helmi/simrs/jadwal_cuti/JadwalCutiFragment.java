@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,14 +26,15 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class JadwalCutiFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class JadwalCutiFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, SearchView.OnQueryTextListener {
 
     View view;
     private RecyclerView mRecycler;
-    private RecyclerView.Adapter mAdapter;
+    private JadwalCutiRecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mManager;
     private List<JadwalCutiModel> mItems = new ArrayList<>();
     private SwipeRefreshLayout swipeRefreshLayout;
+    private SearchView searchView;
 
     public JadwalCutiFragment() {
         // Required empty public constructor
@@ -57,6 +59,9 @@ public class JadwalCutiFragment extends Fragment implements SwipeRefreshLayout.O
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setRefreshing(true);
+        searchView = view.findViewById(R.id.search_view);
+        searchView.setOnClickListener(this);
+        searchView.setOnQueryTextListener(this);
     }
 
     @Override
@@ -89,5 +94,25 @@ public class JadwalCutiFragment extends Fragment implements SwipeRefreshLayout.O
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.search_view:
+                searchView.setIconified(false);
+                break;
+        }
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        mAdapter.getFilter().filter(newText);
+        return true;
     }
 }

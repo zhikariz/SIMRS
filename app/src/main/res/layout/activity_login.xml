@@ -24,8 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Nomor RM"
-            android:textColor="#fff"
             android:textAlignment="center"
+            android:textColor="#fff"
             android:textSize="14sp" />
 
         <EditText
@@ -34,16 +34,16 @@
             android:layout_height="wrap_content"
             android:hint="Masukkan Nomor RM"
             android:textAlignment="center"
-            android:textSize="17sp"
-            android:textColor="#fff"/>
+            android:textColor="#fff"
+            android:textSize="17sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Password"
-            android:textColor="#fff"
             android:textAlignment="center"
+            android:textColor="#fff"
             android:textSize="14sp" />
 
         <EditText
@@ -53,8 +53,8 @@
             android:hint="Masukkan Password"
             android:inputType="textPassword"
             android:textAlignment="center"
-            android:textSize="17sp"
-            android:textColor="#fff"/>
+            android:textColor="#fff"
+            android:textSize="17sp" />
 
 
         <Button
@@ -62,8 +62,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textAllCaps="true"
-            android:text="masuk" />
+            android:text="masuk"
+            android:textAllCaps="true" />
+
+        <TextView
+            android:id="@+id/tv_lupa_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:layout_marginTop="20dp"
+            android:gravity="end"
+            android:textSize="17sp"
+            android:textStyle="italic"
+            android:text="Lupa Password?"/>
     </LinearLayout>
 
 
