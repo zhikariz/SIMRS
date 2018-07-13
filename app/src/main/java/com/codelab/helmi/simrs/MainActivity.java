@@ -1,5 +1,6 @@
 package com.codelab.helmi.simrs;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     CircleImageView civLogo;
     SharedPrefManager sharedPrefManager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
+                startActivityForResult(i,0);
             }
         });
 
@@ -61,5 +63,13 @@ public class MainActivity extends AppCompatActivity {
         ivRs = findViewById(R.id.gambar_rs);
         Glide.with(this).load(R.drawable.rsu_kasih_ibu).into(ivRs);
         Glide.with(this).load(R.drawable.logo).into(civLogo);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            setResult(RESULT_OK);
+            finish();
+        }
     }
 }

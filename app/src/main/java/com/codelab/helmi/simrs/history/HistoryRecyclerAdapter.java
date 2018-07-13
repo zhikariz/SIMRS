@@ -48,10 +48,12 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
             holder.dokter_poli.setText(mFilterList.get(position).getNama_dokter() + "/" + mFilterList.get(position).getNama_poli());
             holder.status.setText(mFilterList.get(position).getStatus_persetujuan());
             if(mFilterList.get(position).getStatus_persetujuan().equals("Belum disetujui")){
-                holder.status.setTextColor(Color.parseColor("#ff0000"));
+                holder.status.setTextColor(Color.parseColor("#CCCC00"));
             }
             else if(mFilterList.get(position).getStatus_persetujuan().equals("Disetujui")){
                 holder.status.setTextColor(Color.parseColor("#008000"));
+            } else {
+                holder.status.setTextColor(Color.parseColor("#ff0000"));
             }
 
 
@@ -68,6 +70,7 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
                     historyData.setKategori(mFilterList.get(position).getKategori());
                     historyData.setNama_asuransi(mFilterList.get(position).getNama_asuransi());
                     historyData.setStatus_persetujuan(mFilterList.get(position).getStatus_persetujuan());
+                    historyData.setKeterangan(mFilterList.get(position).getKeterangan());
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(detailHistoryFragment.EXTRA_HISTORY, historyData);
