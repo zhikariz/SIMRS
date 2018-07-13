@@ -149,12 +149,14 @@ public class PesanFragment extends Fragment implements AdapterView.OnItemSelecte
                     @Override
                     public void onResponse(Call<PesanResponseModel> call, Response<PesanResponseModel> response) {
                         try {
-                            String result = response.body().getResult();
-                            if (result.equals("Gagal Pesan! , Form Masih Kosong")){
-                                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-                                getFragmentManager().popBackStackImmediate();
+                            if(response.isSuccessful()) {
+                                String result = response.body().getResult();
+                                if (result.equals("Gagal Pesan! , Form Masih Kosong")) {
+                                    Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                    getFragmentManager().popBackStackImmediate();
+                                }
                             }
 
                         } catch (Exception e){

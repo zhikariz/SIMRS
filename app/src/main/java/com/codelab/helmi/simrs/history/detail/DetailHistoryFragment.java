@@ -19,7 +19,7 @@ public class DetailHistoryFragment extends Fragment {
 
     public static String EXTRA_HISTORY = "extra_history";
     View view;
-    TextView tvNoRm, tvTglPesan, tvNamaPoli, tvNamaDokter, tvKategori, tvAsuransi, tvStatus;
+    TextView tvNoRm, tvTglPesan, tvNamaPoli, tvNamaDokter, tvKategori, tvAsuransi, tvStatus, tvKeterangan;
     Bundle bundle;
     HistoryData historyData;
 
@@ -47,6 +47,7 @@ public class DetailHistoryFragment extends Fragment {
         tvKategori = view.findViewById(R.id.tv_detail_history_kategori);
         tvAsuransi = view.findViewById(R.id.tv_detail_history_nama_asuransi);
         tvStatus = view.findViewById(R.id.tv_detail_history_status);
+        tvKeterangan = view.findViewById(R.id.tv_detail_history_keterangan);
     }
 
     private void tampilDataDetail() {
@@ -59,10 +60,13 @@ public class DetailHistoryFragment extends Fragment {
         tvKategori.setText(historyData.getKategori());
         tvAsuransi.setText(historyData.getNama_asuransi());
         tvStatus.setText(historyData.getStatus_persetujuan());
+        tvKeterangan.setText(historyData.getKeterangan());
         if(historyData.getStatus_persetujuan().equals("Belum disetujui")){
+            tvStatus.setTextColor(Color.parseColor("#CCCC00"));
+        }else if(historyData.getStatus_persetujuan().equals("Disetujui")){
+            tvStatus.setTextColor(Color.parseColor("#008000"));
+        } else {
             tvStatus.setTextColor(Color.parseColor("#ff0000"));
-        }else{
-            tvStatus.setTextColor(Color.parseColor("008000"));
         }
 
     }

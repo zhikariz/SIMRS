@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codelab.helmi.simrs.HomeActivity;
+import com.codelab.helmi.simrs.MainActivity;
 import com.codelab.helmi.simrs.R;
 import com.codelab.helmi.simrs.api.RestApi;
 import com.codelab.helmi.simrs.api.RestServer;
@@ -70,8 +71,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     sharedPrefManager.saveSPString(SharedPrefManager.SP_NO_RM, no_rm);
                     // Shared Pref ini berfungsi untuk menjadi trigger session login
                     sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
+
                     Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
                     startActivity(i);
+                    setResult(RESULT_OK);
+                    finish();
 
                 } else {
                     Toast.makeText(LoginActivity.this, "Login Gagal", Toast.LENGTH_SHORT).show();

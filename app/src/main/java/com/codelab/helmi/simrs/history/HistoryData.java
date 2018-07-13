@@ -32,6 +32,8 @@ public class HistoryData implements Parcelable {
     private String nama_dokter;
     @SerializedName("nama_poli")
     private String nama_poli;
+    @SerializedName("keterangan")
+    private String keterangan;
 
     public String getId_registrasi_periksa() {
         return id_registrasi_periksa;
@@ -137,6 +139,14 @@ public class HistoryData implements Parcelable {
         this.nama_poli = nama_poli;
     }
 
+    public String getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(String keterangan) {
+        this.keterangan = keterangan;
+    }
+
 
     @Override
     public int describeContents() {
@@ -158,6 +168,7 @@ public class HistoryData implements Parcelable {
         dest.writeString(this.id_poli);
         dest.writeString(this.nama_dokter);
         dest.writeString(this.nama_poli);
+        dest.writeString(this.keterangan);
     }
 
     public HistoryData() {
@@ -177,6 +188,7 @@ public class HistoryData implements Parcelable {
         this.id_poli = in.readString();
         this.nama_dokter = in.readString();
         this.nama_poli = in.readString();
+        this.keterangan = in.readString();
     }
 
     public static final Creator<HistoryData> CREATOR = new Creator<HistoryData>() {

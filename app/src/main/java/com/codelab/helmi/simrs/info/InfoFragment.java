@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.codelab.helmi.simrs.HomeActivity;
 import com.codelab.helmi.simrs.R;
 import com.codelab.helmi.simrs.api.RestApi;
 import com.codelab.helmi.simrs.api.RestServer;
@@ -118,7 +119,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_logout:
                 sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
                 Toast.makeText(getActivity(), "Berhasil Logout !", Toast.LENGTH_SHORT).show();
-                getActivity().getFragmentManager().popBackStack();
+                getActivity().finish();
                 startActivity(new Intent(getActivity(), LoginActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
