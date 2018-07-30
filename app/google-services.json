@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "772390414708",
+    "firebase_url": "https://rskasihibu-18fdc.firebaseio.com",
+    "project_id": "rskasihibu-18fdc",
+    "storage_bucket": "rskasihibu-18fdc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772390414708:android:c154f8627743465f",
+        "android_client_info": {
+          "package_name": "com.codelab.helmi.simrs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "772390414708-c4qg04ilioh13us0o40d0ud4mvgrfipu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codelab.helmi.simrs",
+            "certificate_hash": "4bdd92076676c9493dc938dd36c253253396aad4"
+          }
+        },
+        {
+          "client_id": "772390414708-alepssembtcnoqmhfhc0gddi2dgrto4c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_471bKXo1_GEXbt6LcdfURPwl4QhPzXQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "772390414708-alepssembtcnoqmhfhc0gddi2dgrto4c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

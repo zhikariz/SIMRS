@@ -21,4 +21,17 @@ public class RestServer {
 
         return  retrofit;
     }
+
+    public static Retrofit getNotification()
+    {
+        if(retrofit == null)
+        {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("https://fcm.googleapis.com/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+
+        return  retrofit;
+    }
 }

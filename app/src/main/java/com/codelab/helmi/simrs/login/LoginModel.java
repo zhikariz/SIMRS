@@ -8,6 +8,11 @@ public class LoginModel {
     @SerializedName("password")
     private String password;
 
+    public LoginModel(String friendId) {
+        this.no_rm = friendId;
+    }
+
+
     public String getNo_rm() {
         return no_rm;
     }

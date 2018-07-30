@@ -1,5 +1,6 @@
 package com.codelab.helmi.simrs.api;
 
+import com.codelab.helmi.simrs.chat.FirebaseMessage;
 import com.codelab.helmi.simrs.history.HistoryResponseModel;
 import com.codelab.helmi.simrs.info.GantiPasswordLoginResponseModel;
 import com.codelab.helmi.simrs.jadwal_cuti.JadwalCutiResponseModel;
@@ -13,13 +14,21 @@ import com.codelab.helmi.simrs.pesan.PoliDokterResponseModel;
 import com.codelab.helmi.simrs.pesan.PoliResponseModel;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface RestApi {
+
+    //firebase
+    @Headers({"Authorization:key=AAAAs9YOaXQ:APA91bE2rNdK_Kz7l7KKOIpEP6inWKzfNYfgCpsy4MKZRZoU1NZS3Y-6jNY13kIS0npxuwUJzyAQSVViml8vb79hQHRjd7AKooU460umi1X1NeDka2Fj8eEKHyyL1Hks5IxkCvFCMKioKg4D1RLF6nUac-BTdXTTag",
+            "Content-Type:application/json"})
+    @POST("fcm/send")
+    Call<FirebaseMessage> sendMessage(@Body FirebaseMessage message);
 
     //read
     @GET("jadwal_dokter.php")
