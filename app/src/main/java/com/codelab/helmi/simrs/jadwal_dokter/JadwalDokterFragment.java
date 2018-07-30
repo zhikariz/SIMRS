@@ -98,7 +98,7 @@ public class JadwalDokterFragment extends Fragment implements SwipeRefreshLayout
             Parcelable listState = mBundleRecyclerViewState.getParcelable(KEY_RECYCLER_STATE);
             mRecycler.getLayoutManager().onRestoreInstanceState(listState);
             mRecycler.setAdapter(mAdapter);
-        }else if(mBundleRecyclerViewState == null){
+        }else {
             swipeRefreshLayout.setRefreshing(true);
             loadData();
         }
